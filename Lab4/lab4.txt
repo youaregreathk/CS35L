@@ -1,0 +1,86 @@
+1.  I obtain the the repository of repository by using
+   git clone git://git.savannah.gnu.org/diffutils.git
+
+2. Store the log of chnages of Diffutils master branch in to
+   the file git-log.txt using the command bellow
+   git log > git-log.txt
+
+3. Generate the list of tag and then store it in the file
+   git-tags.txt using the following command
+   git tag> git-tags.txt
+
+4. I used emacs to open the file git-log.txt and used C-s
+   to search the commit with maint: quote
+   then i used show to generate the patch file and put
+   it into quote-patch.txt
+   by using the command below
+   git show 62ca21c8c1a5aa3488589dcb191a4ef04ae9ed4f>
+   quote-patch.txt
+
+5. By using the command cat git-tags.txt we can see that
+   v3.0 is inside. Using the command git checkout v3.0
+
+6. By uding the patch command to apply the quote-patch.txt
+   to the version 3.0:
+   patch -p1 < quote-patch.txt
+   During the process, I encountered three hints
+   'File to patch:' Then I input 'Enter' and the
+   'Skip this pathc? [y]' shows up  and then i choose y
+
+7. Then I used the command: git status
+   It shows all the modified file and
+   untracked files
+
+8. In this step I learned how to use the command vc-diff(C-x v=)
+   and vc convert(C-x v u) and diff-apply-hunk(C-u C-c C-a)
+   
+
+9. By using git status, it displays all the modified files.I first
+   use emacs to open all the non .c file and then us the command
+   vc-revert (C-x v u) to revert them back. For the .c files, I
+   opened them using emacs and using the vc-diss(C-x v =) to see the
+   changes of thoese files and choose the non code changes and revert
+   thoes hunks back by using the command diff-apply-hunk (C-u C-c C-a)
+
+10. By using git status there are two .rej files. They are src/diff.c.rej
+    and src/diff3.c.rej. I then opened src/diff.c.rej with emacs and also
+    opened the diff.c. I them mannually copy the rejected patches into the
+    src/diff.c.rej. I did the same thing for the src/diff3.c.rej
+
+11. Then I use the command git clean -f -d to remove all the untracked files
+    -d is used for removing untracted directoery in addtion to untracted files
+    -f is used for forcing
+
+12.By using git status. It shows 6 .c files.
+   Then by using the command
+   git diff > quote-3.0-patch.txt
+   to store the patch which is three or four hundres lines.
+
+13.From the README-hacking
+   I used the following command
+   ./bootstrap
+   ./configure
+   make
+   make check
+   Then I run the two comands: 'diff . -' and './diff . -'
+   the first one shows: diff: cannot compare `-' to a directory
+   the second one shows : ./diff: cannot compare '-' to a directory
+   Then I run 'diff --help' and './diff --help'
+   the first one shows message with "If a FILE is `-', read standard input."
+   the 2nd one shows message with "If a FILE is '-', read standard input."
+
+14.By using the command mkdir, I created two directory outside the diffuils
+   which are diffutils-3.0 and diffutils-3.0-patch. Then I copy all the
+   files inside the src of diffutils into the diffutils-3.0-pathc
+   by using the command cp * ../../diffutils-3.0-patch
+   Then I run the command 'git checkout -f v3.0' to get back to Diffutils 3.0
+   Then I went to the src folder and copied all the files into diffutils-3.0:
+   cp *	../../diffutils-3.0
+   Then by using the command diffutils-3.0-patch/diff -pru diffutils-3.0
+   diffutils-3.0-patch > quote-3.0-test.txt. I obtained the quote-3.0-test.txt
+
+15.Finally, I used the diff command to compare the two files and also check
+   the differences by using the following command
+   diff quote-3.0-test.txt quote-3.0-patch.txt | less
+   By checking the outcome, I found the difference is the string literals,
+   so it is innocuous.

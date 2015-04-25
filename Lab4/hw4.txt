@@ -1,0 +1,58 @@
+1. Create a file hw4.txt using emacs
+2. Check out version 3.0 from my repositorty into "quote" by:
+   git checkout -b quote
+
+3. Appyling the 'quote-3.0-patch.txt' by running:
+   patch -p1 < ./quote-3.0-patch.txt
+   It shows the following message
+   patching file src/cmp.c
+   patching file src/diff.c
+   patching file src/diff3.c
+   patching file src/dir.c
+   patching file src/sdiff.c
+   patching file src/util.c
+
+4and 5. Opening  the above 6 c files, and inside the files I used the command:
+   C-x 4 a.
+  to add each change log entry to the file 'ChangeLog'
+   For each change log, I wrote "change all the ` to '"
+
+6.Then, I committed my changes to the new branch by:
+  git add .
+  git commit -F ChangeLog
+
+7.To generate the file formatted-patch.txt, I used the below command:
+  git format-patch --stdout > formatted-patch.txt
+  and I openedthe formatted-patch.txt,
+  and it was empty, then I run:
+  git format-patch -1 --stdout > formatted-patch.txt
+  and the formatted-patch file is correct.
+
+8.I checked out to version 3.0 by:
+  git checkout -f v3.0
+  then I checked out to the branch ‘partner’ by:
+  git checkout -b partner
+  Then I run the below run the command for pathcing:
+  git am < ../formatted-patch.txt
+  Then I used the folling command
+  ./bootstrap
+  ./configure
+  make
+  make check
+  All the command works great
+
+9.By using the command: make distir
+  Inside folder ‘diffutils’, there exist a folder ‘diffutils-3.0.1-00cc’. There is
+  ‘ChangeLog’ file, and in the file,
+  I saw commit message of the 6 files.
+
+10.I downloaded xquartz, and then logged out my laptop
+   and logged in running xquartz, and I typed in：
+   ssh -X @lnxsrv.seas.ucla.edu
+   and then
+   cd ~eggert/src/gnu/emacs
+   export PATH=/usr/local/cs/bin:$PATH
+   gitk
+   Then I got a git window, from there I found the newest merge
+   not newer than 2015-01-25, and took a screenshot
+

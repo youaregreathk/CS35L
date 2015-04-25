@@ -1,0 +1,6 @@
+1. the lefttop window: mainly gives the commit message
+2. the righttop window: gives the commit time
+3. the middletop window: gives the commit author
+4. the rightbottom window: gives the files impacted by selected commit
+5. the leftbottom window: gives the parent and child of the commit
+    and file changes in diff format
